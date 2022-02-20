@@ -3,18 +3,17 @@
 // Author: Jon Stanovich-Rubalcava
 // Date: 17 February 2022
 
-//MOSTLY FROM ORIGINAL FILE, SIMPLY ADDED NEW FUNCTIONS FOR PROJECT 2
+//MOSTLY FROM ORIGINAL FILE, ADDED NEW FUNCTIONS FOR PROJECT 2
 
-//Fixed bad pointer usage in strtoul
-//Fixed other pointer usage
-//Changed main to accept file input via terminal
-
-#define MAX_OPSIZE 25 //Maximum size of OPERATION specifier and OPERANDs
+#define MAX_OPSIZE 25 //Maximum size of OPERATION specifier and OPERANDs - Operations should be three letters, and numbers 32-bit hex 0xXXXXXXXX
 #define MESSAGE_PADDING 20 //Padding for output messages
+#define MAX_RUN 100 //Maximum amount of operations to perform, used to prevent infinite loop.
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+void PERFORM_OPERATION(FILE *, char[MAX_OPSIZE], _Bool);
 
 void RUN_ADD(FILE *, _Bool);
 void RUN_AND(FILE *, _Bool);
@@ -32,21 +31,14 @@ void TWO_OP_PRINT(char[3], u_int32_t, u_int32_t, u_int32_t, _Bool);
 int main(int argc, char *argv[])
 {
     /*
-    Reads from an input file with the following format(s):
-
-        General Form:
-            OPERATION OPERANDS
-
-    Then the OPERATION is performed on the operands.
-    Operations and Output will be dependent on the assignment guidelines.
-
-        Project 2's Form:
+    Builds on Project 1 by extending operations that can be performed.
+    Project 2's Form:
             Expected Input: OPERATION HEX_NUMBER_1 HEX_NUMBER_2
             Output: Display the result of OPC in hex (32-bit).
             Possible options (OPERATION | # Args): (ADD | 2), (AND | 2), (ASR | 1), (LSR | 1), (LSL | 1), (NOT | 1), (ORR | 2), (SUB | 2), (XOR | 2).
     */
 
-    //Check for correct input and if file can be opened
+    //SETUP - Check for correct input and if file can be opened
     if (argc != 2)
         {
             printf("Correct usage: ./main <filename>\n");
@@ -67,80 +59,58 @@ int main(int argc, char *argv[])
     _Bool print_hex = 1; //0 for decimal
 
     //Main Loop - Reads operation, calls appropriate function to run operation
-    while (fscanf(input_file, "%s", OPERATION) != EOF && run_count < 100)
+    while (fscanf(input_file, "%s", OPERATION) != EOF && run_count < MAX_RUN)
         {
             printf("\n     _____________________ \n\n\n     INSTRUCTION %d\n\n", run_count);
-
-            if (strcmp(OPERATION, "ADD")==0)
-                {
-                    RUN_ADD(input_file, print_hex);
-                    run_count++;
-                }
-
-           else if (strcmp(OPERATION, "AND")==0)
-                {
-                    RUN_AND(input_file, print_hex);
-                    run_count++;
-                }
-
-           else if (strcmp(OPERATION,"ASR")==0)
-                {
-                    RUN_ASR(input_file, print_hex);
-                    run_count++;
-                }
-                
-           else if (strcmp(OPERATION,"LSR")==0)
-                {
-                    RUN_LSR(input_file, print_hex);
-                    run_count++;
-                }
-  
-           else if (strcmp(OPERATION, "LSL")==0)
-                {
-                    RUN_LSL(input_file, print_hex);
-                    run_count++;
-                }
-           
-           else if (strcmp(OPERATION, "NOT")==0)
-                {
-                    RUN_NOT(input_file, print_hex);
-                    run_count++;
-                }
-                
-           else if (strcmp(OPERATION, "ORR")==0)
-                {
-                    RUN_ORR(input_file, print_hex);
-                    run_count++;
-                }
-                
-           else if (strcmp(OPERATION, "SUB")==0)
-                {
-                    RUN_SUB(input_file, print_hex);
-                    run_count++;
-                }
-                
-           else if (strcmp(OPERATION, "XOR")==0)
-                {
-                    RUN_XOR(input_file, print_hex);
-                    run_count++;
-                }
-
-            else 
-                printf("WTF OPCODE did you give me???");
-
-            //ADD MORE OPERATION HERE IN THE FUTURE
+            PERFORM_OPERATION(input_file, OPERATION, print_hex);
+            run_count++;
         }
 
     if (fclose(input_file) == 0)
-        {
             printf("\n\n%20s", "----END----\n\n");
-        };
 
     return (0);
 }
 
+
+
+
 //####################################################################################################################
 //Functions
+
+void PERFORM_OPERATION(FILE * input_file, char OPERATION[MAX_OPSIZE], _Bool print_hex)
+{
+    //This is where all the checks happen to figure out what operation to run. 
+    if (strcmp(OPERATION, "ADD")==0)
+            RUN_ADD(input_file, print_hex);
+        
+   else if (strcmp(OPERATION, "AND")==0)
+            RUN_AND(input_file, print_hex);
+        
+   else if (strcmp(OPERATION,"ASR")==0)
+            RUN_ASR(input_file, print_hex);
+        
+   else if (strcmp(OPERATION,"LSR")==0)
+            RUN_LSR(input_file, print_hex);
+
+   else if (strcmp(OPERATION, "LSL")==0)
+            RUN_LSL(input_file, print_hex);
+   
+   else if (strcmp(OPERATION, "NOT")==0)
+            RUN_NOT(input_file, print_hex);
+        
+   else if (strcmp(OPERATION, "ORR")==0)
+            RUN_ORR(input_file, print_hex);
+        
+   else if (strcmp(OPERATION, "SUB")==0)
+            RUN_SUB(input_file, print_hex);
+        
+   else if (strcmp(OPERATION, "XOR")==0)
+            RUN_XOR(input_file, print_hex);
+
+    else 
+        printf("\nUnknown Operation - check input file.\n");
+}
 
 //The main while loop has already checked to make sure we have a valid line to read, so we will not do any further checking here.
 
@@ -232,7 +202,7 @@ void RUN_LSL(FILE * input_file, _Bool print_hex)
 
     fscanf(input_file, "%X %X", &OPERAND1, &OPERAND2);
 
-    ONE_OP_PRINT("LSL", OPERAND1, (OPERAND1 << 2), print_hex);
+    ONE_OP_PRINT("LSL", OPERAND1, (OPERAND1 << 1), print_hex);
 
     return;
 }

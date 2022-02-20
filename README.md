@@ -1,20 +1,30 @@
-# CS219 Programming Assignment 1
+# CS219 Programming Assignment 2
 
-Due 28 January 2022.
+Due 1 March 2022.
 
 ## Student Information
 Jonathan Jake Stanovich Rubalcava - jonstanovich@nevada.unr.edu
 
-Github Repository for My Assignment - https://github.com/1001-Stanovich-Jon/CS219-Programming-Assignment-1
+Github Repository for My Assignment - https://github.com/1001-Stanovich-Jon/CS219-Programming-Project-2
+# Project 2 Overview
 
-# Project 1 Overview
-At the lowest level, computers handle instructions by using electrical signals. Binary can be used to represent these signals, and the lowest level instructions can be described using binary sequences. This is dependent on the machine being used. Higher level languages were developed to lessen the burden on programmers, and provide a more readable and efficient way to develop instructions. 
-
-As memory and speed have improved, the need to write in lower level languages has decreased, as labor costs are more of a worry than efficiency. However, to truly (or better) understand how computers work it is useful to examine what is happening at these lower levels. The purpose of this project is to analyze how assembly language is structured, and to write a program in C/C++ that will read instructions written in assembly language and perform them.
-
-This first project will focus on performing addition on two operands. To do this, a program will be written in C/C++ that will read from an input file, parse the lines, and perform a specified operation. We begin with instructions following the form below, where both operands are given as hexadecimal numbers. The sum will then be displayed to the terminal.
+The first project had us develop some basic code that could read an input file with lines of text of the form
 
 `ADD OPERAND_1 OPERAND_2`
+
+and it would display this input along with the addition of the operands. Project 2 extends the functionality of the first project, and will include the following operations:
+
+1. ADD - Takes in two operands, and adds them.
+2. AND - Takes in two operands, and performs a bitwise AND between them.
+3. ASR - Takes in one operand, and performs an arithmetic shift right on it.
+4. LSR - Takes in one operand, and perfroms a logic shift right on it.
+5. LSL - Takes in one operand, and performs a logic shift left on it.
+6. NOT - Takes in one operand, and performs a bitwise NOT.
+7. ORR - Takes in two operands, and performs a bitwise OR between them.
+8. SUB - Takes in two operands, and subtracts the second operand from the first.
+9. XOR - Takes in two operands, and performs a bitwise XOR between them.
+
+In each of the above cases, the operands and operations specified in the input file are displayed to the screen, along with the output of the operation.
 
 ---
 
@@ -31,10 +41,10 @@ Navigate to build folder
 > make clean
 ```
 
-So for this project it would be
+For this project the input file is PP2_input.txt, so use
 ```sh
 > make
-> ./main Programming-Project-1.txt
+> ./main PP2_input.txt
 > make clean
 ```
 
