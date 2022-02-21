@@ -1,9 +1,8 @@
-# CS219:  Programming Assignment 1
-# File: main.cpp
+# CS219:  Programming Project 2
 # Author: Jon Stanovich-Rubalcava
-# Date Created: 19 January 2022
+# Date: 20 February 2022
 
-#This project is simple, so just compile it all in one go to executable name 'main'
+#Tried to keep it simple still, so just compile it all in one go, with executable name 'main'
 OUTPUT: main.c
 	cc main.c -o main
 
