@@ -26,7 +26,7 @@ and it would display this input along with the addition of the operands. Project
 
 In each of the above cases, the operands and operations specified in the input file are displayed to the screen, along with the output of the operation.
 
-#INPUT FILE REQUIREMENTS
+# INPUT FILE REQUIREMENTS
 
 Any operation that expects **two inputs** needs to be formatted as:
 `OPERATION OPERAND_1 OPERAND_2`
@@ -39,7 +39,7 @@ Where:
 - `OPERAND_1` and `OPERAND_2` are 32-bit hex numbers of the form `0xXXXXXXXX`
 - Each operation must be on a separate line.
 
-If two operands are given to an operation expecting one, or one operand is given to an opereation expecting two, an error will result. Note that it does not check if there are more than 2 operands, so please be nice.
+If two operands are given to an operation expecting one, or one operand is given to an operation expecting two, an error will result. Note that it does not check if there are more than 2 operands, so please be nice.
 
 
 ---
