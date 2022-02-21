@@ -169,7 +169,15 @@ int RUN_ADD(FILE * input_file, _Bool print_hex)
     //Performs addition with OPERAND1 and OPERAND2, displays their sum.
     u_int32_t OPERAND1 = 0, OPERAND2 = 0; 
 
-    fscanf(input_file, "%X %X", &OPERAND1, &OPERAND2);
+    fscanf(input_file, "%X", &OPERAND1);
+
+    if (!(CHECK_SECOND_INPUT(input_file)))
+        {
+            PRINT_DOUBLE_INPUT_ERROR("ADD");
+            return 0;
+        }
+    else
+        fscanf(input_file, "%X", &OPERAND2);
 
     TWO_OP_PRINT("ADD", OPERAND1, OPERAND2, (OPERAND1+OPERAND2), print_hex);
 
@@ -192,9 +200,6 @@ int RUN_AND(FILE * input_file, _Bool print_hex)
         }
     else
         fscanf(input_file, "%X", &OPERAND2);
-
-    int message_space = 15; //Padding
-    int message_length = 500;
 
     TWO_OP_PRINT("AND", OPERAND1, OPERAND2, (OPERAND1&OPERAND2), print_hex);
 
@@ -312,7 +317,15 @@ int RUN_ORR(FILE * input_file, _Bool print_hex)
     u_int32_t OPERAND1 = 0, OPERAND2 = 0;
     u_int32_t RESULT = 0;    
 
-    fscanf(input_file, "%X %X", &OPERAND1, &OPERAND2);
+    fscanf(input_file, "%X", &OPERAND1);
+
+    if (!(CHECK_SECOND_INPUT(input_file)))
+        {
+            PRINT_DOUBLE_INPUT_ERROR("ORR");
+            return 0;
+        }
+    else
+        fscanf(input_file, "%X", &OPERAND2);
 
     TWO_OP_PRINT("ORR", OPERAND1, OPERAND2, (OPERAND1 | OPERAND2), print_hex);
 
@@ -327,7 +340,15 @@ int RUN_SUB(FILE * input_file, _Bool print_hex)
     u_int32_t OPERAND1 = 0, OPERAND2 = 0;
     u_int32_t RESULT = 0;    
 
-    fscanf(input_file, "%X %X", &OPERAND1, &OPERAND2);
+    fscanf(input_file, "%X", &OPERAND1);
+
+    if (!(CHECK_SECOND_INPUT(input_file)))
+        {
+            PRINT_DOUBLE_INPUT_ERROR("SUB");
+            return 0;
+        }
+    else
+        fscanf(input_file, "%X", &OPERAND2);
 
     RESULT = OPERAND1 + ((~OPERAND2)+1); //I wanted to do two's complement, looks cooler than using -
 
@@ -344,7 +365,15 @@ int RUN_XOR(FILE * input_file, _Bool print_hex)
     u_int32_t OPERAND1 = 0, OPERAND2 = 0;
     u_int32_t RESULT = 0;    
 
-    fscanf(input_file, "%X %X", &OPERAND1, &OPERAND2);
+    fscanf(input_file, "%X", &OPERAND1);
+
+    if (!(CHECK_SECOND_INPUT(input_file)))
+        {
+            PRINT_DOUBLE_INPUT_ERROR("XOR");
+            return 0;
+        }
+    else
+        fscanf(input_file, "%X", &OPERAND2);
 
 
     TWO_OP_PRINT("XOR", OPERAND1, OPERAND2, OPERAND1 ^ OPERAND2, print_hex);
